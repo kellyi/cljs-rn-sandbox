@@ -1,9 +1,7 @@
 (ns cljs-rn-sandbox.core
     (:require [reagent.core :as r :refer [atom]]
-              [re-frame.core :refer [subscribe dispatch dispatch-sync]]
               [oops.core :refer [ocall]]
-              [cljs-rn-sandbox.handlers]
-              [cljs-rn-sandbox.subs]))
+              [cljs-rn-sandbox.store :as store]))
 
 (def ReactNative (js/require "react-native"))
 (def expo (js/require "expo"))
@@ -21,7 +19,7 @@
   (.alert Alert title))
 
 (defn app-root []
-  (let [greeting (subscribe [:get-greeting])]
+  (let [greeting (r/atom "hello")]
     (fn []
       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
        [image {:source (js/require "./assets/images/cljs.png")
@@ -34,5 +32,4 @@
         [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
 
 (defn init []
-  (dispatch-sync [:initialize-db])
   (ocall expo "registerRootComponent" (r/reactify-component app-root)))
