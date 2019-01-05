@@ -1,7 +1,7 @@
 (ns cljs-rn-sandbox.core
-    (:require [reagent.core :as r :refer [atom]]
-              [oops.core :refer [ocall]]
-              [cljs-rn-sandbox.views :as views]))
+  (:require [reagent.core :as r :refer [atom]]
+            [oops.core :refer [ocall]]
+            [cljs-rn-sandbox.views :as views]))
 
 (def expo (js/require "expo"))
 (defn app-root [] [views/main])
